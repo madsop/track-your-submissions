@@ -11,8 +11,8 @@ class CFPResource {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    fun addSubmission(conference: String, year: Int): UUID {
-        val submission = Submission(UUID.randomUUID(), conference, year, Status.IN_SUBMISSION)
+    fun addSubmission(submissionRequest: SubmissionRequest): UUID {
+        val submission = Submission(submissionRequest)
         submissions.add(submission)
         return submission.id
     }

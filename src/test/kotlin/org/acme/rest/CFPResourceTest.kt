@@ -17,7 +17,7 @@ internal class CFPResourceTest {
 
     @Test
     fun addedSubmissionIsStillThere() {
-        cfpResource.addSubmission("JBCNConf", 2020)
+        cfpResource.addSubmission(SubmissionRequest("JBCNConf", 2020, "Talk1"))
         val submissions = cfpResource.getActiveSubmissions()
         assertEquals(submissions.size, 1)
         assertEquals(submissions.get(0).conference, "JBCNConf")
@@ -27,7 +27,8 @@ internal class CFPResourceTest {
 
     @Test
     fun markedAsRejectedIsRemovedFromTheActiveList() {
-        val submissionID = cfpResource.addSubmission("JBCNConf", 2020)
+        val submissionID = cfpResource.addSubmission(SubmissionRequest("JBCNConf", 2020, "Talk1"))
+
         cfpResource.markAsRejected(submissionID)
 
         assertThat(cfpResource.getActiveSubmissions(), equalTo(emptyList()))
@@ -35,7 +36,8 @@ internal class CFPResourceTest {
 
     @Test
     fun acceptedTalkIsPresentInTheActiveList() {
-        val submissionID = cfpResource.addSubmission("Riga Dev Days", 2020)
+        val submissionID = cfpResource.addSubmission(SubmissionRequest("Confer", 2020, "Talk2"))
+
         cfpResource.markAsApproved(submissionID)
 
         assertThat(cfpResource.getActiveSubmissions().get(0).id, equalTo(submissionID))
