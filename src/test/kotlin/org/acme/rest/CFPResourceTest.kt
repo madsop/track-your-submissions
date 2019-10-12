@@ -2,6 +2,8 @@ package org.acme.rest
 
 import com.natpryce.hamkrest.assertion.assertThat
 import com.natpryce.hamkrest.equalTo
+import com.natpryce.hamkrest.hasElement
+import com.natpryce.hamkrest.hasSize
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
@@ -41,6 +43,20 @@ internal class CFPResourceTest {
         cfpResource.markAsApproved(submissionID)
 
         assertThat(cfpResource.getActiveSubmissions().get(0).id, equalTo(submissionID))
+    }
 
+    @Test
+    fun acceptedTalkIsPresentInTheActiveListAlongWithInSubmissionButNotRejected() {
+        val jbcnSubmissionID = cfpResource.addSubmission(SubmissionRequest("JBCNConf", 2020, "Talk2"))
+        val conferSubmissionID = cfpResource.addSubmission(SubmissionRequest("Confer", 2020, "Talk2"))
+        val rigaSubmissionID = cfpResource.addSubmission(SubmissionRequest("Riga Dev Days", 2020, "Talk2"))
+
+        cfpResource.markAsApproved(conferSubmissionID)
+        cfpResource.markAsRejected(jbcnSubmissionID)
+
+        val activeSubmissions = cfpResource.getActiveSubmissions().map { it.id }
+        assertThat(activeSubmissions, hasSize(equalTo(2)))
+        assertThat(activeSubmissions, hasElement(conferSubmissionID))
+        assertThat(activeSubmissions, hasElement(rigaSubmissionID))
     }
 }
