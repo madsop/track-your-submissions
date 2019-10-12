@@ -12,6 +12,7 @@ class CFPResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
+    @Path("/add")
     fun addSubmission(submissionRequest: SubmissionRequest): UUID {
         val submission = Submission(submissionRequest)
         submissions.add(submission)
@@ -26,17 +27,19 @@ class CFPResource {
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    fun markAsRejected(id: UUID) {
+    @Path("/reject")
+    fun markAsRejected(id: UUIDRequest) {
         submissions
-                .filter { it.id == id }
+                .filter { it.id == id.toUUID() }
                 .forEach { it.status = Status.REJECTED }
     }
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    fun markAsApproved(id: UUID) {
+    @Path("/accept")
+    fun markAsApproved(id: UUIDRequest) {
         submissions
-                .filter { it.id == id }
+                .filter { it.id == id.toUUID() }
                 .forEach { it.status = Status.ACCEPTED }
     }
 }
