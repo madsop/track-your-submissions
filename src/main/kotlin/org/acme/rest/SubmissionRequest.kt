@@ -2,7 +2,9 @@ package org.acme.rest
 
 
 data class SubmissionRequest(
-        val conference: String,
-        val year: Int,
-        val talk: String
-)
+        var conference: String,
+        var year: Int,
+        var talk: String
+) {
+    constructor() : this("",-1, "")
+}

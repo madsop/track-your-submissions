@@ -11,6 +11,7 @@ class CFPResource {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     fun addSubmission(submissionRequest: SubmissionRequest): UUID {
         val submission = Submission(submissionRequest)
         submissions.add(submission)
