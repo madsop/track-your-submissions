@@ -32,4 +32,13 @@ internal class CFPResourceTest {
 
         assertThat(cfpResource.getActiveSubmissions(), equalTo(emptyList()))
     }
+
+    @Test
+    fun acceptedTalkIsPresentInTheActiveList() {
+        val submissionID = cfpResource.addSubmission("Riga Dev Days", 2020)
+        cfpResource.markAsApproved(submissionID)
+
+        assertThat(cfpResource.getActiveSubmissions().get(0).id, equalTo(submissionID))
+
+    }
 }

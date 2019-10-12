@@ -23,9 +23,19 @@ class CFPResource {
         return submissions.filter { it.status != Status.REJECTED }
     }
 
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
     fun markAsRejected(id: UUID) {
         submissions
                 .filter { it.id == id }
                 .forEach { it.status = Status.REJECTED }
+    }
+
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    fun markAsApproved(id: UUID) {
+        submissions
+                .filter { it.id == id }
+                .forEach { it.status = Status.ACCEPTED }
     }
 }
