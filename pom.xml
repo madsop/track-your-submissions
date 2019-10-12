@@ -54,6 +54,11 @@
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-resteasy-jsonb</artifactId>
     </dependency>
+    <dependency>
+      <groupId>com.natpryce</groupId>
+      <artifactId>hamkrest</artifactId>
+      <version>1.7.0.0</version>
+    </dependency>
   </dependencies>
   <build>
     <sourceDirectory>src/main/kotlin</sourceDirectory>
