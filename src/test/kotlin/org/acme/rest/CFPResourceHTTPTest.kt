@@ -18,7 +18,7 @@ open class CFPResourceHTTPTest {
                         "\t\"year\": 2020,\n" +
                         "\t\"talk\": \"TalkTitle1\"\n" +
                         "}")
-                .post("/cfp")
+                .post("/cfp/add")
                 .then()
                 .statusCode(200)
 
