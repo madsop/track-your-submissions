@@ -1,7 +1,9 @@
 package org.acme.rest
 
 import java.util.*
+import javax.enterprise.context.ApplicationScoped
 
+@ApplicationScoped
 class SubmissionsRepository {
 
     private val submissions = mutableListOf<Submission>()

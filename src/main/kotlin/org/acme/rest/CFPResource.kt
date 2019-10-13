@@ -1,14 +1,15 @@
 package org.acme.rest
 
 import java.util.*
+import javax.inject.Inject
 import javax.ws.rs.*
 import javax.ws.rs.core.MediaType
 
 @Path("/cfp")
 class CFPResource {
 
-    var submissionsRepository: SubmissionsRepository = SubmissionsRepository()
-
+    @Inject
+    lateinit internal var submissionsRepository: SubmissionsRepository
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
