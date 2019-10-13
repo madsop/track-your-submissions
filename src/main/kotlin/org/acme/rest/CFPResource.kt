@@ -7,39 +7,34 @@ import javax.ws.rs.core.MediaType
 @Path("/cfp")
 class CFPResource {
 
-    private val submissions = mutableListOf<Submission>()
+    var submissionsRepository: SubmissionsRepository = SubmissionsRepository()
+
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/add")
     fun addSubmission(submissionRequest: SubmissionRequest): UUID {
-        val submission = Submission(submissionRequest)
-        submissions.add(submission)
-        return submission.id
+        return submissionsRepository.addSubmission(submissionRequest)
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     fun getActiveSubmissions(): List<Submission> {
-        return submissions.filter { it.status != Status.REJECTED }
+        return submissionsRepository.getActiveSubmissions()
     }
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/reject")
     fun markAsRejected(id: UUIDRequest) {
-        submissions
-                .filter { it.id == id.toUUID() }
-                .forEach { it.status = Status.REJECTED }
+        submissionsRepository.markAsRejected(id)
     }
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/accept")
     fun markAsApproved(id: UUIDRequest) {
-        submissions
-                .filter { it.id == id.toUUID() }
-                .forEach { it.status = Status.ACCEPTED }
+        submissionsRepository.markAsApproved(id)
     }
 }
