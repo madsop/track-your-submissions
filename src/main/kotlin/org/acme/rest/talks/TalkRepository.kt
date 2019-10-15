@@ -1,6 +1,5 @@
 package org.acme.rest.talks
 
-import java.util.*
 import javax.enterprise.context.ApplicationScoped
 
 @ApplicationScoped
@@ -8,7 +7,7 @@ class TalkRepository {
 
     private val talks = mutableListOf<Talk>()
 
-    fun add(talkRequest: TalkRequest): UUID {
+    fun add(talkRequest: TalkRequest): TalkID {
         val talk = Talk(talkRequest)
         talks.add(talk)
         return talk.id
@@ -18,8 +17,8 @@ class TalkRepository {
         return talks
     }
 
-    fun getTalk(uuidRequest: UUID): Talk {
-        return talks.first { it.id == uuidRequest }
+    fun getTalk(talkID: TalkID): Talk {
+        return talks.first { it.id == talkID }
     }
 
 
