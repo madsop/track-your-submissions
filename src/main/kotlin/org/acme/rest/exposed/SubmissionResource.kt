@@ -49,6 +49,9 @@ class SubmissionResource {
         submissionsRepository.retract(SubmissionID(submissionID))
     }
 
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/notes")
     fun addNotes(submissionID: UUIDRequest, notes: String) {
         submissionsRepository.addNotes(SubmissionID(submissionID), notes)
     }
