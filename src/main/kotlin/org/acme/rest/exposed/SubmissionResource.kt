@@ -48,4 +48,8 @@ class SubmissionResource {
     fun retract(submissionID: UUIDRequest) {
         submissionsRepository.retract(SubmissionID(submissionID))
     }
+
+    fun addNotes(submissionID: UUIDRequest, notes: String) {
+        submissionsRepository.addNotes(SubmissionID(submissionID), notes)
+    }
 }

@@ -9,12 +9,14 @@ data class Submission(
         val conference: String,
         val year: Int,
         val talk: Talk,
-        var status: Status
+        var status: Status,
+        var notes: String
 ) {
     constructor(submissionRequest: SubmissionRequest, talkResource: TalkResource): this(
             SubmissionID(),
             submissionRequest.conference,
             submissionRequest.year,
             talkResource.getTalk(submissionRequest.talk),
-            Status.IN_EVALUATION)
+            Status.IN_EVALUATION,
+            submissionRequest.notes)
 }

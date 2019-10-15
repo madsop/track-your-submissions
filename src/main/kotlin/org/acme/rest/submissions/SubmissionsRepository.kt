@@ -23,16 +23,20 @@ class SubmissionsRepository {
     }
 
     fun markAsRejected(id: SubmissionID) {
-        getTalk(id).forEach { it.status = Status.REJECTED }
+        getTalk(id).status = Status.REJECTED
     }
 
     fun markAsApproved(id: SubmissionID) {
-        getTalk(id).forEach { it.status = Status.ACCEPTED }
+        getTalk(id).status = Status.ACCEPTED
     }
 
-    private fun getTalk(id: SubmissionID) = submissions.filter { it.id == id }
+    private fun getTalk(id: SubmissionID) = submissions.first() { it.id == id }
 
     fun retract(submissionID: SubmissionID) {
-        getTalk(submissionID).forEach { it.status = Status.RETRACTED }
+        getTalk(submissionID).status = Status.RETRACTED
+    }
+
+    fun addNotes(submissionID: SubmissionID, notes: String) {
+        getTalk(submissionID).notes += notes
     }
 }
