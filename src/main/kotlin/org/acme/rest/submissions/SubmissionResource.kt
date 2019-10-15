@@ -30,20 +30,20 @@ class SubmissionResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/reject")
     fun markAsRejected(id: UUIDRequest) {
-        submissionsRepository.markAsRejected(id)
+        submissionsRepository.markAsRejected(id.toUUID())
     }
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/accept")
     fun markAsApproved(id: UUIDRequest) {
-        submissionsRepository.markAsApproved(id)
+        submissionsRepository.markAsApproved(id.toUUID())
     }
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/retract")
     fun retract(submissionID: UUIDRequest) {
-        submissionsRepository.retract(submissionID)
+        submissionsRepository.retract(submissionID.toUUID())
     }
 }

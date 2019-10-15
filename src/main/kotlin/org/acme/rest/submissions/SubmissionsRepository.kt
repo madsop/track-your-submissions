@@ -1,6 +1,5 @@
 package org.acme.rest.submissions
 
-import org.acme.rest.UUIDRequest
 import org.acme.rest.talks.TalkResource
 import java.util.*
 import javax.enterprise.context.ApplicationScoped
@@ -24,17 +23,17 @@ class SubmissionsRepository {
         return submissions.filter { it.status != Status.REJECTED }.filter { it.status != Status.RETRACTED }
     }
 
-    fun markAsRejected(id: UUIDRequest) {
+    fun markAsRejected(id: UUID) {
         getTalk(id).forEach { it.status = Status.REJECTED }
     }
 
-    fun markAsApproved(id: UUIDRequest) {
+    fun markAsApproved(id: UUID) {
         getTalk(id).forEach { it.status = Status.ACCEPTED }
     }
 
-    private fun getTalk(id: UUIDRequest) = submissions.filter { it.id == id.toUUID() }
+    private fun getTalk(id: UUID) = submissions.filter { it.id == id }
 
-    fun retract(submissionID: UUIDRequest) {
+    fun retract(submissionID: UUID) {
         getTalk(submissionID).forEach { it.status = Status.RETRACTED }
     }
 }

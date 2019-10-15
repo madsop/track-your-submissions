@@ -1,6 +1,5 @@
 package org.acme.rest.talks
 
-import org.acme.rest.UUIDRequest
 import java.util.*
 import javax.enterprise.context.ApplicationScoped
 
@@ -19,8 +18,8 @@ class TalkRepository {
         return talks
     }
 
-    fun getTalk(uuidRequest: UUIDRequest): Talk {
-        return talks.first { it.id == uuidRequest.toUUID() }
+    fun getTalk(uuidRequest: UUID): Talk {
+        return talks.first { it.id == uuidRequest }
     }
 
 

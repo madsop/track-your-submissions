@@ -28,6 +28,6 @@ class TalkResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     fun getTalk(uuidRequest: UUIDRequest): Talk {
-        return talkRepository.getTalk(uuidRequest)
+        return talkRepository.getTalk(uuidRequest.toUUID())
     }
 }
