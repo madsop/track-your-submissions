@@ -4,10 +4,11 @@ import com.natpryce.hamkrest.assertion.assertThat
 import com.natpryce.hamkrest.equalTo
 import com.natpryce.hamkrest.hasElement
 import com.natpryce.hamkrest.hasSize
-import org.acme.rest.UUIDRequest
+import org.acme.rest.exposed.UUIDRequest
+import org.acme.rest.exposed.SubmissionResource
 import org.acme.rest.talks.TalkRepository
 import org.acme.rest.talks.TalkRequest
-import org.acme.rest.talks.TalkResource
+import org.acme.rest.exposed.TalkResource
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import java.util.*

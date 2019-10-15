@@ -3,6 +3,7 @@ package org.acme.rest.talks
 import com.natpryce.hamkrest.assertion.assertThat
 import com.natpryce.hamkrest.equalTo
 import com.natpryce.hamkrest.hasSize
+import org.acme.rest.exposed.TalkResource
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 

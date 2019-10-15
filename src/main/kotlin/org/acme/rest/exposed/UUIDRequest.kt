@@ -1,4 +1,4 @@
-package org.acme.rest
+package org.acme.rest.exposed
 
 import java.util.*
 

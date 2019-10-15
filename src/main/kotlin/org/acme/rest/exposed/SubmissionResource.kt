@@ -1,6 +1,8 @@
-package org.acme.rest.submissions
+package org.acme.rest.exposed
 
-import org.acme.rest.UUIDRequest
+import org.acme.rest.submissions.Submission
+import org.acme.rest.submissions.SubmissionRequest
+import org.acme.rest.submissions.SubmissionsRepository
 import java.util.*
 import javax.inject.Inject
 import javax.ws.rs.*

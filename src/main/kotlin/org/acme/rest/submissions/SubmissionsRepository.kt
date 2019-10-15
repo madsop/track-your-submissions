@@ -1,6 +1,6 @@
 package org.acme.rest.submissions
 
-import org.acme.rest.talks.TalkResource
+import org.acme.rest.exposed.TalkResource
 import java.util.*
 import javax.enterprise.context.ApplicationScoped
 import javax.inject.Inject

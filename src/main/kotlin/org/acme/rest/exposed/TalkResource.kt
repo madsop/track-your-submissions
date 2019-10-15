@@ -1,6 +1,8 @@
-package org.acme.rest.talks
+package org.acme.rest.exposed
 
-import org.acme.rest.UUIDRequest
+import org.acme.rest.talks.Talk
+import org.acme.rest.talks.TalkRepository
+import org.acme.rest.talks.TalkRequest
 import java.util.*
 import javax.inject.Inject
 import javax.ws.rs.*

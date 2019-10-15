@@ -1,6 +1,6 @@
 package org.acme.rest.submissions
 
-import org.acme.rest.UUIDRequest
+import org.acme.rest.exposed.UUIDRequest
 
 
 data class SubmissionRequest(
