@@ -1,4 +1,4 @@
-package org.acme.rest
+package org.acme.rest.submissions
 
 import org.acme.rest.talks.Talk
 import org.acme.rest.talks.TalkResource

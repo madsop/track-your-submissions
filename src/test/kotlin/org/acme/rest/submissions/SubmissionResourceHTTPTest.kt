@@ -1,4 +1,4 @@
-package org.acme.rest
+package org.acme.rest.submissions
 
 import io.quarkus.test.junit.QuarkusTest
 import io.restassured.RestAssured.given
@@ -6,11 +6,16 @@ import io.restassured.http.ContentType
 import org.junit.jupiter.api.Test
 
 @QuarkusTest
-open class CFPResourceHTTPTest {
+open class SubmissionResourceHTTPTest {
 
     @Test
     fun canPostSubmission() {
-        given()
+        given().`when`().contentType(ContentType.JSON)
+                .body("{\n" +
+                        "\t\"title\": \"TalkTitle1\"\n" +
+                        "}")
+                .post("/talks/add")
+        given() //TODO: finn ut korleis chain-e httpkall i dette gwt-verktyget
                 .`when`()
                 .contentType(ContentType.JSON)
                 .body("{\n" +

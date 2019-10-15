@@ -1,5 +1,6 @@
-package org.acme.rest
+package org.acme.rest.submissions
 
+import org.acme.rest.UUIDRequest
 import org.acme.rest.talks.TalkResource
 import java.util.*
 import javax.enterprise.context.ApplicationScoped

@@ -1,12 +1,13 @@
-package org.acme.rest
+package org.acme.rest.submissions
 
+import org.acme.rest.UUIDRequest
 import java.util.*
 import javax.inject.Inject
 import javax.ws.rs.*
 import javax.ws.rs.core.MediaType
 
 @Path("/cfp")
-class CFPResource {
+class SubmissionResource {
 
     @Inject
     lateinit internal var submissionsRepository: SubmissionsRepository
