@@ -10,7 +10,7 @@ import javax.ws.rs.core.MediaType
 class SubmissionResource {
 
     @Inject
-    lateinit internal var submissionsRepository: SubmissionsRepository
+    internal lateinit var submissionsRepository: SubmissionsRepository
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)

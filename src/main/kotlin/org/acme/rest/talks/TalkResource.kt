@@ -27,6 +27,6 @@ class TalkResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     fun getTalk(uuidRequest: UUIDRequest): Talk {
-        return talks.filter { it.id == uuidRequest.toUUID() }.first()
+        return talks.first { it.id == uuidRequest.toUUID() }
     }
 }
