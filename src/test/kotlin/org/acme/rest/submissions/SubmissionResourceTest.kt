@@ -40,7 +40,7 @@ internal class SubmissionResourceTest {
         assertEquals(submissions.size, 1)
         assertEquals(submissions.get(0).conference, "JBCNConf")
         assertEquals(submissions.get(0).year, 2020)
-        assertEquals(submissions.get(0).status, Status.IN_SUBMISSION)
+        assertEquals(submissions.get(0).status, Status.IN_EVALUATION)
     }
 
     @Test

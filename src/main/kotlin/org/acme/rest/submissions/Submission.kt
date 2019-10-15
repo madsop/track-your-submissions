@@ -17,5 +17,5 @@ data class Submission(
             submissionRequest.conference,
             submissionRequest.year,
             talkResource.getTalk(submissionRequest.talk),
-            Status.IN_SUBMISSION)
+            Status.IN_EVALUATION)
 }
