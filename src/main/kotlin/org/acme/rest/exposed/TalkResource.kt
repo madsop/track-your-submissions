@@ -16,6 +16,7 @@ class TalkResource {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     @Path("/add")
     fun addTalk(talkRequest: TalkRequest): UUID {
         return talkRepository.add(talkRequest)
