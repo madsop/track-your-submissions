@@ -1,5 +1,7 @@
 package org.acme.rest
 
+import org.acme.rest.talks.Talk
+import org.acme.rest.talks.TalkResource
 import java.util.*
 
 
@@ -7,13 +9,13 @@ data class Submission(
         val id: UUID,
         val conference: String,
         val year: Int,
-        val talk: String,
+        val talk: Talk,
         var status: Status
 ) {
-    constructor(submissionRequest: SubmissionRequest): this(
+    constructor(submissionRequest: SubmissionRequest, talkResource: TalkResource): this(
             UUID.randomUUID(),
             submissionRequest.conference,
             submissionRequest.year,
-            submissionRequest.talk,
+            talkResource.getTalk(submissionRequest.talk),
             Status.IN_SUBMISSION)
 }

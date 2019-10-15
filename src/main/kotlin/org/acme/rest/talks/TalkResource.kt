@@ -1,5 +1,7 @@
 package org.acme.rest.talks
 
+import org.acme.rest.UUIDRequest
+import java.util.*
 import javax.ws.rs.*
 import javax.ws.rs.core.MediaType
 
@@ -9,13 +11,22 @@ class TalkResource {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    fun addTalk(talkRequest: TalkRequest) {
-        talks.add(Talk(talkRequest))
+    @Path("/add")
+    fun addTalk(talkRequest: TalkRequest): UUID {
+        val talk = Talk(talkRequest)
+        talks.add(talk)
+        return talk.id
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     fun getTalks(): List<Talk> {
         return talks
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    fun getTalk(uuidRequest: UUIDRequest): Talk {
+        return talks.filter { it.id == uuidRequest.toUUID() }.first()
     }
 }

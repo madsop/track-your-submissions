@@ -1,15 +1,20 @@
 package org.acme.rest
 
+import org.acme.rest.talks.TalkResource
 import java.util.*
 import javax.enterprise.context.ApplicationScoped
+import javax.inject.Inject
 
 @ApplicationScoped
 class SubmissionsRepository {
 
     private val submissions = mutableListOf<Submission>()
 
+    @Inject
+    lateinit var talkResource: TalkResource
+
     fun addSubmission(submissionRequest: SubmissionRequest): UUID {
-        val submission = Submission(submissionRequest)
+        val submission = Submission(submissionRequest, talkResource)
         submissions.add(submission)
         return submission.id
     }
