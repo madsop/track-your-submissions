@@ -4,15 +4,14 @@ import com.natpryce.hamkrest.assertion.assertThat
 import com.natpryce.hamkrest.equalTo
 import com.natpryce.hamkrest.hasElement
 import com.natpryce.hamkrest.hasSize
-import org.acme.rest.exposed.UUIDRequest
 import org.acme.rest.exposed.SubmissionResource
+import org.acme.rest.exposed.TalkResource
+import org.acme.rest.exposed.UUIDRequest
+import org.acme.rest.talks.TalkID
 import org.acme.rest.talks.TalkRepository
 import org.acme.rest.talks.TalkRequest
-import org.acme.rest.exposed.TalkResource
-import org.acme.rest.talks.TalkID
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import java.util.*
 import kotlin.test.assertEquals
 
 internal class SubmissionResourceTest {
@@ -48,7 +47,7 @@ internal class SubmissionResourceTest {
     fun markedAsRejectedIsRemovedFromTheActiveList() {
         val submissionID = submissionResource.addSubmission(SubmissionRequest("JBCNConf", 2020, talk1.toRequest()))
 
-        submissionResource.markAsRejected(submissionID.toRequest())
+        submissionResource.markAsRejected(UUIDRequest(submissionID.id))
 
         assertThat(submissionResource.getActiveSubmissions(), equalTo(emptyList()))
     }
@@ -57,7 +56,7 @@ internal class SubmissionResourceTest {
     fun acceptedTalkIsPresentInTheActiveList() {
         val submissionID = submissionResource.addSubmission(SubmissionRequest("Confer", 2020, talk2.toRequest()))
 
-        submissionResource.markAsApproved(submissionID.toRequest())
+        submissionResource.markAsApproved(UUIDRequest(submissionID.id))
 
         assertThat(submissionResource.getActiveSubmissions().get(0).id, equalTo(submissionID))
     }
@@ -68,8 +67,8 @@ internal class SubmissionResourceTest {
         val conferSubmissionID = submissionResource.addSubmission(SubmissionRequest("Confer", 2020, talk2.toRequest()))
         val rigaSubmissionID = submissionResource.addSubmission(SubmissionRequest("Riga Dev Days", 2020, talk2.toRequest()))
 
-        submissionResource.markAsApproved(conferSubmissionID.toRequest())
-        submissionResource.markAsRejected(jbcnSubmissionID.toRequest())
+        submissionResource.markAsApproved(UUIDRequest(conferSubmissionID.id))
+        submissionResource.markAsRejected(UUIDRequest(jbcnSubmissionID.id))
 
         val activeSubmissions = submissionResource.getActiveSubmissions().map { it.id }
         assertThat(activeSubmissions, hasSize(equalTo(2)))
@@ -80,7 +79,7 @@ internal class SubmissionResourceTest {
     @Test
     fun retractedTalkIsNotConsideredActive() {
         val submissionID = submissionResource.addSubmission(SubmissionRequest("JBCNConf", 2020, talk2.toRequest()))
-        submissionResource.retract(submissionID.toRequest())
+        submissionResource.retract(UUIDRequest(submissionID.id))
         assertThat(submissionResource.getActiveSubmissions(), equalTo(emptyList()))
     }
 }
