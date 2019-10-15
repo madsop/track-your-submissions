@@ -1,9 +1,9 @@
 package org.acme.rest.exposed
 
 import org.acme.rest.submissions.Submission
+import org.acme.rest.submissions.SubmissionID
 import org.acme.rest.submissions.SubmissionRequest
 import org.acme.rest.submissions.SubmissionsRepository
-import java.util.*
 import javax.inject.Inject
 import javax.ws.rs.*
 import javax.ws.rs.core.MediaType
@@ -18,7 +18,7 @@ class SubmissionResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/add")
-    fun addSubmission(submissionRequest: SubmissionRequest): UUID {
+    fun addSubmission(submissionRequest: SubmissionRequest): SubmissionID {
         return submissionsRepository.addSubmission(submissionRequest)
     }
 
@@ -32,20 +32,20 @@ class SubmissionResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/reject")
     fun markAsRejected(id: UUIDRequest) {
-        submissionsRepository.markAsRejected(id.toUUID())
+        submissionsRepository.markAsRejected(SubmissionID(id))
     }
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/accept")
     fun markAsApproved(id: UUIDRequest) {
-        submissionsRepository.markAsApproved(id.toUUID())
+        submissionsRepository.markAsApproved(SubmissionID(id))
     }
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/retract")
     fun retract(submissionID: UUIDRequest) {
-        submissionsRepository.retract(submissionID.toUUID())
+        submissionsRepository.retract(SubmissionID(submissionID))
     }
 }

@@ -9,6 +9,7 @@ import org.acme.rest.exposed.SubmissionResource
 import org.acme.rest.talks.TalkRepository
 import org.acme.rest.talks.TalkRequest
 import org.acme.rest.exposed.TalkResource
+import org.acme.rest.talks.TalkID
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import java.util.*
@@ -18,8 +19,8 @@ internal class SubmissionResourceTest {
 
     lateinit var submissionResource: SubmissionResource
 
-    lateinit var talk1: UUID
-    lateinit var talk2: UUID
+    private lateinit var talk1: TalkID
+    private lateinit var talk2: TalkID
 
     @BeforeEach
     fun setup() {
@@ -35,7 +36,7 @@ internal class SubmissionResourceTest {
 
     @Test
     fun addedSubmissionIsStillThere() {
-        submissionResource.addSubmission(SubmissionRequest("JBCNConf", 2020, UUIDRequest(talk1)))
+        submissionResource.addSubmission(SubmissionRequest("JBCNConf", 2020, talk1.toRequest()))
         val submissions = submissionResource.getActiveSubmissions()
         assertEquals(submissions.size, 1)
         assertEquals(submissions.get(0).conference, "JBCNConf")
@@ -45,30 +46,30 @@ internal class SubmissionResourceTest {
 
     @Test
     fun markedAsRejectedIsRemovedFromTheActiveList() {
-        val submissionID = submissionResource.addSubmission(SubmissionRequest("JBCNConf", 2020, UUIDRequest(talk1)))
+        val submissionID = submissionResource.addSubmission(SubmissionRequest("JBCNConf", 2020, talk1.toRequest()))
 
-        submissionResource.markAsRejected(UUIDRequest(submissionID))
+        submissionResource.markAsRejected(submissionID.toRequest())
 
         assertThat(submissionResource.getActiveSubmissions(), equalTo(emptyList()))
     }
 
     @Test
     fun acceptedTalkIsPresentInTheActiveList() {
-        val submissionID = submissionResource.addSubmission(SubmissionRequest("Confer", 2020, UUIDRequest(talk2)))
+        val submissionID = submissionResource.addSubmission(SubmissionRequest("Confer", 2020, talk2.toRequest()))
 
-        submissionResource.markAsApproved(UUIDRequest(submissionID))
+        submissionResource.markAsApproved(submissionID.toRequest())
 
         assertThat(submissionResource.getActiveSubmissions().get(0).id, equalTo(submissionID))
     }
 
     @Test
     fun acceptedTalkIsPresentInTheActiveListAlongWithInSubmissionButNotRejected() {
-        val jbcnSubmissionID = submissionResource.addSubmission(SubmissionRequest("JBCNConf", 2020, UUIDRequest(talk2)))
-        val conferSubmissionID = submissionResource.addSubmission(SubmissionRequest("Confer", 2020, UUIDRequest(talk2)))
-        val rigaSubmissionID = submissionResource.addSubmission(SubmissionRequest("Riga Dev Days", 2020, UUIDRequest(talk2)))
+        val jbcnSubmissionID = submissionResource.addSubmission(SubmissionRequest("JBCNConf", 2020, talk2.toRequest()))
+        val conferSubmissionID = submissionResource.addSubmission(SubmissionRequest("Confer", 2020, talk2.toRequest()))
+        val rigaSubmissionID = submissionResource.addSubmission(SubmissionRequest("Riga Dev Days", 2020, talk2.toRequest()))
 
-        submissionResource.markAsApproved(UUIDRequest(conferSubmissionID.toString()))
-        submissionResource.markAsRejected(UUIDRequest(jbcnSubmissionID))
+        submissionResource.markAsApproved(conferSubmissionID.toRequest())
+        submissionResource.markAsRejected(jbcnSubmissionID.toRequest())
 
         val activeSubmissions = submissionResource.getActiveSubmissions().map { it.id }
         assertThat(activeSubmissions, hasSize(equalTo(2)))
@@ -78,8 +79,8 @@ internal class SubmissionResourceTest {
 
     @Test
     fun retractedTalkIsNotConsideredActive() {
-        val submissionID = submissionResource.addSubmission(SubmissionRequest("JBCNConf", 2020, UUIDRequest(talk2)))
-        submissionResource.retract(UUIDRequest(submissionID))
+        val submissionID = submissionResource.addSubmission(SubmissionRequest("JBCNConf", 2020, talk2.toRequest()))
+        submissionResource.retract(submissionID.toRequest())
         assertThat(submissionResource.getActiveSubmissions(), equalTo(emptyList()))
     }
 }

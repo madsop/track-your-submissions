@@ -1,7 +1,6 @@
 package org.acme.rest.submissions
 
 import org.acme.rest.exposed.TalkResource
-import java.util.*
 import javax.enterprise.context.ApplicationScoped
 import javax.inject.Inject
 
@@ -13,7 +12,7 @@ class SubmissionsRepository {
     @Inject
     lateinit var talkResource: TalkResource
 
-    fun addSubmission(submissionRequest: SubmissionRequest): UUID {
+    fun addSubmission(submissionRequest: SubmissionRequest): SubmissionID {
         val submission = Submission(submissionRequest, talkResource)
         submissions.add(submission)
         return submission.id
@@ -23,17 +22,17 @@ class SubmissionsRepository {
         return submissions.filter { it.status != Status.REJECTED }.filter { it.status != Status.RETRACTED }
     }
 
-    fun markAsRejected(id: UUID) {
+    fun markAsRejected(id: SubmissionID) {
         getTalk(id).forEach { it.status = Status.REJECTED }
     }
 
-    fun markAsApproved(id: UUID) {
+    fun markAsApproved(id: SubmissionID) {
         getTalk(id).forEach { it.status = Status.ACCEPTED }
     }
 
-    private fun getTalk(id: UUID) = submissions.filter { it.id == id }
+    private fun getTalk(id: SubmissionID) = submissions.filter { it.id == id }
 
-    fun retract(submissionID: UUID) {
+    fun retract(submissionID: SubmissionID) {
         getTalk(submissionID).forEach { it.status = Status.RETRACTED }
     }
 }

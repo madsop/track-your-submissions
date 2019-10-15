@@ -1,19 +1,18 @@
 package org.acme.rest.submissions
 
-import org.acme.rest.talks.Talk
 import org.acme.rest.exposed.TalkResource
-import java.util.*
+import org.acme.rest.talks.Talk
 
 
 data class Submission(
-        val id: UUID,
+        val id: SubmissionID,
         val conference: String,
         val year: Int,
         val talk: Talk,
         var status: Status
 ) {
     constructor(submissionRequest: SubmissionRequest, talkResource: TalkResource): this(
-            UUID.randomUUID(),
+            SubmissionID(),
             submissionRequest.conference,
             submissionRequest.year,
             talkResource.getTalk(submissionRequest.talk),
