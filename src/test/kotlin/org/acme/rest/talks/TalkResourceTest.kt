@@ -13,6 +13,7 @@ internal class TalkResourceTest {
     @BeforeEach
     fun setup() {
         talkResource = TalkResource()
+        talkResource.talkRepository = TalkRepository()
     }
 
     @Test

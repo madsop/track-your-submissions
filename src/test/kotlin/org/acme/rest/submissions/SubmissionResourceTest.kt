@@ -5,6 +5,7 @@ import com.natpryce.hamkrest.equalTo
 import com.natpryce.hamkrest.hasElement
 import com.natpryce.hamkrest.hasSize
 import org.acme.rest.UUIDRequest
+import org.acme.rest.talks.TalkRepository
 import org.acme.rest.talks.TalkRequest
 import org.acme.rest.talks.TalkResource
 import org.junit.jupiter.api.BeforeEach
@@ -24,6 +25,7 @@ internal class SubmissionResourceTest {
         submissionResource = SubmissionResource()
         submissionResource.submissionsRepository = SubmissionsRepository()
         val talkResource = TalkResource()
+        talkResource.talkRepository = TalkRepository()
         talk1 = talkResource.addTalk(TalkRequest("Talk1"))
         talk2 = talkResource.addTalk(TalkRequest("Talk2"))
         submissionResource.submissionsRepository.talkResource = talkResource
