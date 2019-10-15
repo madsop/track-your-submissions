@@ -39,4 +39,11 @@ class SubmissionResource {
     fun markAsApproved(id: UUIDRequest) {
         submissionsRepository.markAsApproved(id)
     }
+
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/retract")
+    fun retract(submissionID: UUIDRequest) {
+        submissionsRepository.retract(submissionID)
+    }
 }

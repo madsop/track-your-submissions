@@ -21,18 +21,20 @@ class SubmissionsRepository {
     }
 
     fun getActiveSubmissions(): List<Submission> {
-        return submissions.filter { it.status != Status.REJECTED }
+        return submissions.filter { it.status != Status.REJECTED }.filter { it.status != Status.RETRACTED }
     }
 
     fun markAsRejected(id: UUIDRequest) {
-        submissions
-                .filter { it.id == id.toUUID() }
-                .forEach { it.status = Status.REJECTED }
+        getTalk(id).forEach { it.status = Status.REJECTED }
     }
 
     fun markAsApproved(id: UUIDRequest) {
-        submissions
-                .filter { it.id == id.toUUID() }
-                .forEach { it.status = Status.ACCEPTED }
+        getTalk(id).forEach { it.status = Status.ACCEPTED }
+    }
+
+    private fun getTalk(id: UUIDRequest) = submissions.filter { it.id == id.toUUID() }
+
+    fun retract(submissionID: UUIDRequest) {
+        getTalk(submissionID).forEach { it.status = Status.RETRACTED }
     }
 }

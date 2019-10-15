@@ -72,4 +72,11 @@ internal class SubmissionResourceTest {
         assertThat(activeSubmissions, hasElement(conferSubmissionID))
         assertThat(activeSubmissions, hasElement(rigaSubmissionID))
     }
+
+    @Test
+    fun retractedTalkIsNotConsideredActive() {
+        val submissionID = submissionResource.addSubmission(SubmissionRequest("JBCNConf", 2020, UUIDRequest(talk2)))
+        submissionResource.retract(UUIDRequest(submissionID))
+        assertThat(submissionResource.getActiveSubmissions(), equalTo(emptyList()))
+    }
 }
