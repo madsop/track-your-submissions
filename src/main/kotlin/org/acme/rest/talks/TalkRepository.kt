@@ -5,20 +5,20 @@ import javax.enterprise.context.ApplicationScoped
 @ApplicationScoped
 class TalkRepository {
 
-    private val talks = mutableListOf<Talk>()
+    private val talks = mutableMapOf<TalkID, Talk>()
 
     fun add(talkRequest: TalkRequest): TalkID {
         val talk = Talk(talkRequest)
-        talks.add(talk)
+        talks[talk.id] = talk
         return talk.id
     }
 
-    fun getTalks(): List<Talk> {
-        return talks
+    fun getTalks(): MutableCollection<Talk> {
+        return talks.values
     }
 
     fun getTalk(talkID: TalkID): Talk {
-        return talks.first { it.id == talkID }
+        return talks[talkID]!!
     }
 
 

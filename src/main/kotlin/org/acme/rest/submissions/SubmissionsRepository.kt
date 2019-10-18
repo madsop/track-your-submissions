@@ -7,19 +7,19 @@ import javax.inject.Inject
 @ApplicationScoped
 class SubmissionsRepository {
 
-    private val submissions = mutableListOf<Submission>()
+    private val submissions = mutableMapOf<SubmissionID, Submission>()
 
     @Inject
     lateinit var talkResource: TalkResource
 
     fun addSubmission(submissionRequest: SubmissionRequest): SubmissionID {
         val submission = Submission(submissionRequest, talkResource)
-        submissions.add(submission)
+        submissions[submission.id] = submission
         return submission.id
     }
 
     fun getActiveSubmissions(): List<Submission> {
-        return submissions.filter { it.status != Status.REJECTED }.filter { it.status != Status.RETRACTED }
+        return submissions.values.filter { it.status != Status.REJECTED }.filter { it.status != Status.RETRACTED }
     }
 
     fun markAsRejected(id: SubmissionID) {
@@ -30,7 +30,7 @@ class SubmissionsRepository {
         getTalk(id).status = Status.ACCEPTED
     }
 
-    private fun getTalk(id: SubmissionID) = submissions.first() { it.id == id }
+    private fun getTalk(id: SubmissionID) = submissions[id]!!
 
     fun retract(submissionID: SubmissionID) {
         getTalk(submissionID).status = Status.RETRACTED
