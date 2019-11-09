@@ -33,4 +33,8 @@ class TalkResource {
     fun getTalk(uuidRequest: UUIDRequest): Talk {
         return talkRepository.getTalk(TalkID(uuidRequest))
     }
+
+    fun getTalkByTItle(title: String): Talk? {
+        return getTalks().firstOrNull { title.equals(it.title) }
+    }
 }

@@ -11,9 +11,9 @@ import org.acme.rest.exposed.UUIDRequest
 import org.acme.rest.talks.TalkID
 import org.acme.rest.talks.TalkRepository
 import org.acme.rest.talks.TalkRequest
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import kotlin.test.assertEquals
 
 internal class SubmissionResourceTest {
 
