@@ -20,7 +20,7 @@ open class SubmissionResourceHTTPTest {
                 .contentType(ContentType.JSON)
                 .body("{\n" +
                         "\t\"conference\": \"Confer\",\n" +
-                        "\t\"year\": 2020,\n" +
+                        "\t\"time\": 2020,\n" +
                         "\t\"talk\": \"TalkTitle1\"\n" +
                         "}")
                 .post("/cfp/add")

@@ -40,12 +40,12 @@ internal class SubmissionResourceTest {
         val submissions = submissionResource.getActiveSubmissions()
         assertEquals(submissions.size, 1)
         assertEquals(submissions.get(0).conference, "JBCNConf")
-        assertEquals(submissions.get(0).year, 2020)
+        assertEquals(submissions.get(0).time, 2020)
         assertEquals(submissions.get(0).status, Status.IN_EVALUATION)
     }
 
     private fun createSubmissionRequest(conferenceName: String, talk: TalkID): SubmissionID {
-        return submissionResource.addSubmission(SubmissionRequest(conferenceName, 2020, UUIDRequest(talk.id), ""))
+        return submissionResource.addSubmission(SubmissionRequest(conferenceName, "2020", UUIDRequest(talk.id), ""))
     }
 
     @Test
