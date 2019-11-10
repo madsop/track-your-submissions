@@ -19,9 +19,8 @@ class TalkRepository {
         talks[talk.id] = talk
         return talk.id
     }
-
-    fun getTalks(): MutableCollection<Talk> {
-        return talks.values
+    fun getTalks(): List<Talk> {
+        return talks.values.toList()
     }
 
     fun getTalk(talkID: TalkID): Talk {

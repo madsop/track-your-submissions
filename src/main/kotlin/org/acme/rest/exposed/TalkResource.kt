@@ -24,7 +24,7 @@ class TalkResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    fun getTalks(): MutableCollection<Talk> {
+    fun getTalks(): List<Talk> {
         return talkRepository.getTalks()
     }
 
