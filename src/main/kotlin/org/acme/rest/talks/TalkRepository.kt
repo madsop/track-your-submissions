@@ -19,13 +19,10 @@ class TalkRepository {
         talks[talk.id] = talk
         return talk.id
     }
-    fun getTalks(): List<Talk> {
-        return talks.values.toList()
-    }
 
-    fun getTalk(talkID: TalkID): Talk {
-        return talks[talkID]!!
-    }
+    fun getTalks(): List<Talk> = talks.values.toList()
+
+    fun getTalk(talkID: TalkID) = talks[talkID]!!
 
 
 }
