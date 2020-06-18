@@ -57,7 +57,7 @@
     <dependency>
       <groupId>com.natpryce</groupId>
       <artifactId>hamkrest</artifactId>
-      <version>1.7.0.0</version>
+      <version>1.7.0.3</version>
     </dependency>
   </dependencies>
   <build>
