@@ -13,10 +13,10 @@ data class Submission(
         var notes: String
 ) {
     constructor(submissionRequest: SubmissionRequest, talkResource: TalkResource): this(
-            SubmissionID(),
-            submissionRequest.conference,
-            submissionRequest.time,
-            talkResource.getTalk(submissionRequest.talk),
-            Status.IN_EVALUATION,
-            submissionRequest.notes)
+            id = SubmissionID(),
+            conference = submissionRequest.conference,
+            time = submissionRequest.time,
+            talk = talkResource.getTalk(submissionRequest.talk),
+            status = Status.IN_EVALUATION,
+            notes = submissionRequest.notes)
 }

@@ -7,6 +7,7 @@ import javax.inject.Inject
 @ApplicationScoped
 class SubmissionsRepository {
 
+
     private val submissions = mutableMapOf<SubmissionID, Submission>()
 
     @Inject

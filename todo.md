@@ -1,0 +1,2 @@
+- replace mutableMapOf as "database" solution with a proper database
+- more event sourcing style: instead of mutating submissions, instead add a new statuschanged entry

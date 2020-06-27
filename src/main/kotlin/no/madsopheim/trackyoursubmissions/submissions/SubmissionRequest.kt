@@ -9,5 +9,5 @@ data class SubmissionRequest(
         var talk: UUIDRequest,
         var notes: String
 ) {
-    constructor() : this("","", UUIDRequest(""), "")
+    constructor() : this(conference = "", time = "", talk = UUIDRequest(""), notes = "")
 }
