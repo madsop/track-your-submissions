@@ -1,4 +1,4 @@
-package org.acme.rest.submissions
+package no.madsopheim.trackyoursubmissions.submissions
 
 
 enum class Status {

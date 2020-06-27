@@ -1,4 +1,4 @@
-package org.acme.rest.talks
+package no.madsopheim.trackyoursubmissions.talks
 
 import javax.annotation.PostConstruct
 import javax.enterprise.context.ApplicationScoped

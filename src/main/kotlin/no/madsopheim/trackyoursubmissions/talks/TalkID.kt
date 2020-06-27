@@ -1,6 +1,6 @@
-package org.acme.rest.talks
+package no.madsopheim.trackyoursubmissions.talks
 
-import org.acme.rest.exposed.UUIDRequest
+import no.madsopheim.trackyoursubmissions.exposed.UUIDRequest
 import java.util.*
 
 

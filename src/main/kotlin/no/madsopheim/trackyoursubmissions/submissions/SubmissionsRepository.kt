@@ -1,6 +1,6 @@
-package org.acme.rest.submissions
+package no.madsopheim.trackyoursubmissions.submissions
 
-import org.acme.rest.exposed.TalkResource
+import no.madsopheim.trackyoursubmissions.exposed.TalkResource
 import javax.enterprise.context.ApplicationScoped
 import javax.inject.Inject
 
@@ -23,15 +23,15 @@ class SubmissionsRepository {
     }
 
     fun markAsRejected(submissionID: SubmissionID) {
-        mutateSubmission(submissionID) { submission -> submission.status = Status.REJECTED}
+        mutateSubmission(submissionID) { submission -> submission.status = Status.REJECTED }
     }
 
     fun markAsApproved(submissionID: SubmissionID) {
-        mutateSubmission(submissionID) { submission -> submission.status = Status.ACCEPTED}
+        mutateSubmission(submissionID) { submission -> submission.status = Status.ACCEPTED }
     }
 
     fun retract(submissionID: SubmissionID) {
-        mutateSubmission(submissionID) { submission -> submission.status = Status.RETRACTED}
+        mutateSubmission(submissionID) { submission -> submission.status = Status.RETRACTED }
     }
 
     fun addNotes(submissionID: SubmissionID, notes: String) {

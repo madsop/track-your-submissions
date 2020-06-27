@@ -1,10 +1,10 @@
-package org.acme.rest.submissions
+package no.madsopheim.trackyoursubmissions.submissions
 
 import io.quarkus.test.junit.QuarkusTest
 import io.restassured.RestAssured.given
 import io.restassured.http.ContentType
-import org.acme.rest.exposed.UUIDRequest
-import org.acme.rest.talks.TalkRequest
+import no.madsopheim.trackyoursubmissions.exposed.UUIDRequest
+import no.madsopheim.trackyoursubmissions.talks.TalkRequest
 import org.junit.jupiter.api.Test
 
 @QuarkusTest

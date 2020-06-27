@@ -1,4 +1,4 @@
-package org.acme.rest.talks
+package no.madsopheim.trackyoursubmissions.talks
 
 
 data class Talk(val id: TalkID, val title: String, val cospeaker: String?) {

@@ -1,7 +1,7 @@
-package org.acme.rest.submissions
+package no.madsopheim.trackyoursubmissions.submissions
 
-import org.acme.rest.exposed.TalkResource
-import org.acme.rest.talks.Talk
+import no.madsopheim.trackyoursubmissions.exposed.TalkResource
+import no.madsopheim.trackyoursubmissions.talks.Talk
 
 
 data class Submission(

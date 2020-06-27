@@ -1,9 +1,9 @@
-package org.acme.rest.exposed
+package no.madsopheim.trackyoursubmissions.exposed
 
-import org.acme.rest.submissions.Submission
-import org.acme.rest.submissions.SubmissionID
-import org.acme.rest.submissions.SubmissionRequest
-import org.acme.rest.submissions.SubmissionsRepository
+import no.madsopheim.trackyoursubmissions.submissions.Submission
+import no.madsopheim.trackyoursubmissions.submissions.SubmissionID
+import no.madsopheim.trackyoursubmissions.submissions.SubmissionRequest
+import no.madsopheim.trackyoursubmissions.submissions.SubmissionsRepository
 import javax.inject.Inject
 import javax.ws.rs.*
 import javax.ws.rs.core.MediaType

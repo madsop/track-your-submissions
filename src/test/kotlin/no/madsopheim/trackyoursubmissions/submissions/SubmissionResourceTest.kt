@@ -1,16 +1,16 @@
-package org.acme.rest.submissions
+package no.madsopheim.trackyoursubmissions.submissions
 
 import com.natpryce.hamkrest.assertion.assertThat
 import com.natpryce.hamkrest.containsSubstring
 import com.natpryce.hamkrest.equalTo
 import com.natpryce.hamkrest.hasElement
 import com.natpryce.hamkrest.hasSize
-import org.acme.rest.exposed.SubmissionResource
-import org.acme.rest.exposed.TalkResource
-import org.acme.rest.exposed.UUIDRequest
-import org.acme.rest.talks.TalkID
-import org.acme.rest.talks.TalkRepository
-import org.acme.rest.talks.TalkRequest
+import no.madsopheim.trackyoursubmissions.exposed.SubmissionResource
+import no.madsopheim.trackyoursubmissions.exposed.TalkResource
+import no.madsopheim.trackyoursubmissions.exposed.UUIDRequest
+import no.madsopheim.trackyoursubmissions.talks.TalkID
+import no.madsopheim.trackyoursubmissions.talks.TalkRepository
+import no.madsopheim.trackyoursubmissions.talks.TalkRequest
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

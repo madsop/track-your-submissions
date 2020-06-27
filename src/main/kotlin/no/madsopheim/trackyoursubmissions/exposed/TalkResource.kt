@@ -1,9 +1,9 @@
-package org.acme.rest.exposed
+package no.madsopheim.trackyoursubmissions.exposed
 
-import org.acme.rest.talks.Talk
-import org.acme.rest.talks.TalkID
-import org.acme.rest.talks.TalkRepository
-import org.acme.rest.talks.TalkRequest
+import no.madsopheim.trackyoursubmissions.talks.Talk
+import no.madsopheim.trackyoursubmissions.talks.TalkID
+import no.madsopheim.trackyoursubmissions.talks.TalkRepository
+import no.madsopheim.trackyoursubmissions.talks.TalkRequest
 import javax.inject.Inject
 import javax.ws.rs.*
 import javax.ws.rs.core.MediaType

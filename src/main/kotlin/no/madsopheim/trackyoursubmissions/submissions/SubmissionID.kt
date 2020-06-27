@@ -1,6 +1,6 @@
-package org.acme.rest.submissions
+package no.madsopheim.trackyoursubmissions.submissions
 
-import org.acme.rest.exposed.UUIDRequest
+import no.madsopheim.trackyoursubmissions.exposed.UUIDRequest
 import java.util.*
 
 data class SubmissionID(val id: UUID) {

@@ -1,10 +1,10 @@
-package org.acme.rest.talks
+package no.madsopheim.trackyoursubmissions.talks
 
 import com.natpryce.hamkrest.assertion.assertThat
 import com.natpryce.hamkrest.equalTo
 import com.natpryce.hamkrest.hasSize
 import com.natpryce.hamkrest.present
-import org.acme.rest.exposed.TalkResource
+import no.madsopheim.trackyoursubmissions.exposed.TalkResource
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 

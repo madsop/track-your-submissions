@@ -1,4 +1,4 @@
-package org.acme.rest.exposed
+package no.madsopheim.trackyoursubmissions.exposed
 
 import java.util.*
 
