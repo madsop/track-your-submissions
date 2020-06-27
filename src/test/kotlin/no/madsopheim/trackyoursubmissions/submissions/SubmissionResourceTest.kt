@@ -24,10 +24,8 @@ internal class SubmissionResourceTest {
 
     @BeforeEach
     fun setup() {
-        submissionResource = SubmissionResource()
-        submissionResource.submissionsRepository = SubmissionsRepository()
-        val talkResource = TalkResource()
-        talkResource.talkRepository = TalkRepository()
+        submissionResource = SubmissionResource(SubmissionsRepository())
+        val talkResource = TalkResource(TalkRepository())
         talk1 = talkResource.addTalk(TalkRequest("Talk1"))
         talk2 = talkResource.addTalk(TalkRequest("Talk2"))
         submissionResource.submissionsRepository.talkResource = talkResource
