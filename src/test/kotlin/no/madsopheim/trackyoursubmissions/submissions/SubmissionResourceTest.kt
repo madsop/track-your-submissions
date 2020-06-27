@@ -5,6 +5,7 @@ import com.natpryce.hamkrest.containsSubstring
 import com.natpryce.hamkrest.equalTo
 import com.natpryce.hamkrest.hasElement
 import com.natpryce.hamkrest.hasSize
+import no.madsopheim.trackyoursubmissions.database.FirebaseConnector
 import no.madsopheim.trackyoursubmissions.exposed.SubmissionResource
 import no.madsopheim.trackyoursubmissions.exposed.TalkResource
 import no.madsopheim.trackyoursubmissions.exposed.UUIDRequest
@@ -24,8 +25,9 @@ internal class SubmissionResourceTest {
 
     @BeforeEach
     fun setup() {
+        val firebaseConnector = FirebaseConnector("todo")
         submissionResource = SubmissionResource(SubmissionsRepository())
-        val talkResource = TalkResource(TalkRepository())
+        val talkResource = TalkResource(TalkRepository(firebaseConnector))
         talk1 = talkResource.addTalk(TalkRequest("Talk1"))
         talk2 = talkResource.addTalk(TalkRequest("Talk2"))
         submissionResource.submissionsRepository.talkResource = talkResource

@@ -4,6 +4,7 @@ import com.natpryce.hamkrest.assertion.assertThat
 import com.natpryce.hamkrest.equalTo
 import com.natpryce.hamkrest.hasSize
 import com.natpryce.hamkrest.present
+import no.madsopheim.trackyoursubmissions.database.FirebaseConnector
 import no.madsopheim.trackyoursubmissions.exposed.TalkResource
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -14,7 +15,7 @@ internal class TalkResourceTest {
 
     @BeforeEach
     fun setup() {
-        talkResource = TalkResource(TalkRepository())
+        talkResource = TalkResource(TalkRepository(FirebaseConnector("todo")))
     }
 
     @Test

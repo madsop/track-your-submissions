@@ -4,7 +4,6 @@ import no.madsopheim.trackyoursubmissions.talks.Talk
 import no.madsopheim.trackyoursubmissions.talks.TalkID
 import no.madsopheim.trackyoursubmissions.talks.TalkRepository
 import no.madsopheim.trackyoursubmissions.talks.TalkRequest
-import javax.inject.Inject
 import javax.ws.rs.*
 import javax.ws.rs.core.MediaType
 
@@ -20,10 +19,13 @@ interface ITalkResource {
     fun getTalks(): List<Talk>
 
     @GET
+    @Path("/talk")
     @Produces(MediaType.APPLICATION_JSON)
-    fun getTalk(uuidRequest: UUIDRequest): Talk
+    fun getTalk(id: TalkID): Talk
 
-    fun getTalkByTItle(title: String): Talk?
+    @GET
+    @Path("/{title}")
+    fun getTalkByTItle(@PathParam("title") title: String): Talk?
 }
 
 @Path("/talks")
@@ -37,9 +39,7 @@ class TalkResource(private val talkRepository: TalkRepository) : ITalkResource {
         return talkRepository.getTalks()
     }
 
-    override fun getTalk(uuidRequest: UUIDRequest): Talk {
-        return talkRepository.getTalk(TalkID(uuidRequest))
-    }
+    override fun getTalk(id: TalkID) = talkRepository.getTalk(id)
 
     override fun getTalkByTItle(title: String): Talk? {
         return getTalks().firstOrNull { title.equals(it.title) }

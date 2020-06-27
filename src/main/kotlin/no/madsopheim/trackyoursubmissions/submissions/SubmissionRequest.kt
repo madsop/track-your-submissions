@@ -1,13 +1,13 @@
 package no.madsopheim.trackyoursubmissions.submissions
 
-import no.madsopheim.trackyoursubmissions.exposed.UUIDRequest
+import no.madsopheim.trackyoursubmissions.talks.TalkID
 
 
 data class SubmissionRequest(
         var conference: String,
         var time: String,
-        var talk: UUIDRequest,
+        var talk: TalkID,
         var notes: String
 ) {
-    constructor() : this(conference = "", time = "", talk = UUIDRequest(""), notes = "")
+    constructor() : this(conference = "", time = "", talk = TalkID(""), notes = "")
 }
