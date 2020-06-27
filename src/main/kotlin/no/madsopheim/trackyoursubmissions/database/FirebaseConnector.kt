@@ -1,6 +1,7 @@
 package no.madsopheim.trackyoursubmissions.database
 
 import com.google.auth.oauth2.GoogleCredentials
+import com.google.cloud.firestore.CollectionReference
 import com.google.cloud.firestore.DocumentSnapshot
 import com.google.cloud.firestore.Firestore
 import com.google.firebase.FirebaseApp
@@ -11,6 +12,7 @@ import no.madsopheim.trackyoursubmissions.talks.TalkID
 import no.madsopheim.trackyoursubmissions.talks.TalkRequest
 import org.eclipse.microprofile.config.inject.ConfigProperty
 import java.io.FileInputStream
+import java.io.IOException
 import javax.annotation.PostConstruct
 import javax.enterprise.context.ApplicationScoped
 
@@ -19,39 +21,23 @@ class FirebaseConnector(@ConfigProperty(name = "pathToCredentials") val pathToCr
 
     lateinit var db: Firestore
 
-    private val talks = mutableMapOf<TalkID, Talk>()
-
     @PostConstruct
     fun setup() {
-        val fileInputStream = FileInputStream(pathToCredentials)
-        val credentials = GoogleCredentials.fromStream(fileInputStream)
-        val options = FirebaseOptions.Builder()
-                .setCredentials(credentials)
-                .build()
-        FirebaseApp.initializeApp(options)
-
+        FirebaseApp.initializeApp(FirebaseOptions.Builder().setCredentials(getCredentials()).build())
         db = FirestoreClient.getFirestore()
     }
 
-    fun getTalks(): List<Talk> {
-        println(db)
-        return getCollection().get()
-                .get()
-                .documents
-                .map { convertToTalk(it) }
-    }
+    private fun getCredentials(): GoogleCredentials? = try { GoogleCredentials.getApplicationDefault() } catch (e: IOException) { GoogleCredentials.fromStream(FileInputStream(pathToCredentials)) }
+
+    fun getTalks(): List<Talk> = getCollection().get().get().documents.map { convertToTalk(it) }
 
     private fun convertToTalk(it: DocumentSnapshot) = Talk(id = TalkID((it.id)), title = it.get("title") as String, cospeaker = it.get("cospeaker") as String)
 
-    fun addTalk(talkRequest: TalkRequest): TalkID {
-        val add = getCollection().add(talkRequest)
-        return TalkID(add.get().id)
+    fun addTalk(talkRequest: TalkRequest): TalkID = TalkID(getCollection().add(talkRequest).get().id)
+
+    private fun getCollection() : CollectionReference {
+        return db.collection("talks")
     }
 
-    private fun getCollection() = db.collection("talks")
-
-    fun getTalk(talkID: TalkID) : Talk {
-        val it : DocumentSnapshot = getCollection().document(talkID.id).get().get()
-        return convertToTalk(it)
-    }
+    fun getTalk(talkID: TalkID) : Talk = convertToTalk(getCollection().document(talkID.id).get().get())
 }

@@ -7,12 +7,6 @@ import javax.enterprise.context.ApplicationScoped
 @ApplicationScoped
 class TalkRepository(val firebaseConnector: FirebaseConnector) {
 
-    @PostConstruct
-    fun setup() {
-      //  add(TalkRequest("IoT powered by MicroProfile", "Rustam Mehmandarov"))
-        //add(TalkRequest("No API? Build it yourself!"))
-    }
-
     fun add(talkRequest: TalkRequest) = firebaseConnector.addTalk(talkRequest)
 
     fun getTalks(): List<Talk> = firebaseConnector.getTalks()

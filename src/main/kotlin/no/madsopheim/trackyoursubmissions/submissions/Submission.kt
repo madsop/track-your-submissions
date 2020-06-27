@@ -16,7 +16,7 @@ data class Submission(
             id = SubmissionID(),
             conference = submissionRequest.conference,
             time = submissionRequest.time,
-            talk = talkResource.getTalk(submissionRequest.talk),
+            talk = talkResource.getTalk(submissionRequest.talk.id),
             status = Status.IN_EVALUATION,
             notes = submissionRequest.notes)
 }
