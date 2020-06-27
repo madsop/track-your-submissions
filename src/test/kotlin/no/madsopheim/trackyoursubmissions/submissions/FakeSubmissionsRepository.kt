@@ -1,13 +1,11 @@
 package no.madsopheim.trackyoursubmissions.submissions
 
-import no.madsopheim.trackyoursubmissions.exposed.TalkResource
-
-class FakeSubmissionsRepository(val talkResource: TalkResource) : ISubmissionsRepository {
+class FakeSubmissionsRepository : ISubmissionsRepository {
 
     private val submissions = mutableMapOf<SubmissionID, Submission>()
 
     override fun addSubmission(submissionRequest: SubmissionRequest): SubmissionID {
-        val submission = Submission(submissionRequest, talkResource)
+        val submission = Submission(submissionRequest)
         submissions[submission.id] = submission
         return submission.id
     }

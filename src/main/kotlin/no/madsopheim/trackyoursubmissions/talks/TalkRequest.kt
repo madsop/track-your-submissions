@@ -5,6 +5,6 @@ data class TalkRequest(
     var cospeaker: String?
 )
 {
-    constructor(): this( "")
-    constructor(title: String): this(title, "")
+    constructor(): this(title = "")
+    constructor(title: String): this(title = title, cospeaker = "")
 }

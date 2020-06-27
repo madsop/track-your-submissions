@@ -7,7 +7,6 @@ import com.natpryce.hamkrest.hasElement
 import com.natpryce.hamkrest.hasSize
 import no.madsopheim.trackyoursubmissions.exposed.SubmissionResource
 import no.madsopheim.trackyoursubmissions.exposed.TalkResource
-import no.madsopheim.trackyoursubmissions.exposed.UUIDRequest
 import no.madsopheim.trackyoursubmissions.talks.FakeTalkRepository
 import no.madsopheim.trackyoursubmissions.talks.TalkID
 import no.madsopheim.trackyoursubmissions.talks.TalkRequest
@@ -27,7 +26,7 @@ internal class SubmissionResourceTest {
         val talkResource = TalkResource(FakeTalkRepository())
         talk1 = talkResource.addTalk(TalkRequest("Talk1"))
         talk2 = talkResource.addTalk(TalkRequest("Talk2"))
-        submissionResource = SubmissionResource(FakeSubmissionsRepository(talkResource))
+        submissionResource = SubmissionResource(FakeSubmissionsRepository())
     }
 
     @Test
@@ -41,14 +40,14 @@ internal class SubmissionResourceTest {
     }
 
     private fun createSubmissionRequest(conferenceName: String, talk: TalkID): SubmissionID {
-        return submissionResource.addSubmission(SubmissionRequest(conferenceName, "2020", TalkID(talk.id), ""))
+        return submissionResource.addSubmission(SubmissionRequest(conferenceName, "2020", talk.id, ""))
     }
 
     @Test
     fun markedAsRejectedIsRemovedFromTheActiveList() {
         val submissionID = createSubmissionRequest("JBCNConf", talk1)
 
-        submissionResource.markAsRejected(UUIDRequest(submissionID.id))
+        submissionResource.markAsRejected(submissionID.id)
 
         assertThat(submissionResource.getActiveSubmissions(), equalTo(emptyList()))
     }
@@ -57,7 +56,7 @@ internal class SubmissionResourceTest {
     fun acceptedTalkIsPresentInTheActiveList() {
         val submissionID = createSubmissionRequest("Confer", talk2)
 
-        submissionResource.markAsApproved(UUIDRequest(submissionID.id))
+        submissionResource.markAsApproved(submissionID.id)
 
         assertThat(submissionResource.getActiveSubmissions().get(0).id, equalTo(submissionID))
     }
@@ -68,8 +67,8 @@ internal class SubmissionResourceTest {
         val conferSubmissionID = createSubmissionRequest("Confer", talk2)
         val rigaSubmissionID = createSubmissionRequest("Riga Dev Days", talk2)
 
-        submissionResource.markAsApproved(UUIDRequest(conferSubmissionID.id))
-        submissionResource.markAsRejected(UUIDRequest(jbcnSubmissionID.id))
+        submissionResource.markAsApproved(conferSubmissionID.id)
+        submissionResource.markAsRejected(jbcnSubmissionID.id)
 
         val activeSubmissions = submissionResource.getActiveSubmissions().map { it.id }
         assertThat(activeSubmissions, hasSize(equalTo(2)))
@@ -80,14 +79,14 @@ internal class SubmissionResourceTest {
     @Test
     fun retractedTalkIsNotConsideredActive() {
         val submissionID = createSubmissionRequest("JBCNConf", talk2)
-        submissionResource.retract(UUIDRequest(submissionID.id))
+        submissionResource.retract(submissionID.id)
         assertThat(submissionResource.getActiveSubmissions(), equalTo(emptyList()))
     }
 
     @Test
     fun canAddNotesToSubmission() {
         val submissionID = createSubmissionRequest("JBCNConf", talk2)
-        submissionResource.addNotes(UUIDRequest(submissionID.id), "my special notes")
+        submissionResource.addNotes(submissionID.id, "my special notes")
         assertThat(submissionResource.getActiveSubmissions().get(0).notes, containsSubstring("my special notes"))
     }
 }

@@ -3,9 +3,8 @@ package no.madsopheim.trackyoursubmissions.submissions
 import com.google.cloud.firestore.DocumentSnapshot
 import no.madsopheim.trackyoursubmissions.database.Collections
 import no.madsopheim.trackyoursubmissions.database.FirebaseConnector
-import no.madsopheim.trackyoursubmissions.exposed.TalkResource
+import no.madsopheim.trackyoursubmissions.talks.TalkID
 import javax.enterprise.context.ApplicationScoped
-import javax.inject.Inject
 
 interface ISubmissionsRepository {
     fun addSubmission(submissionRequest: SubmissionRequest): SubmissionID
@@ -18,7 +17,7 @@ interface ISubmissionsRepository {
 }
 
 @ApplicationScoped
-class SubmissionsRepository(val talkResource: TalkResource, val firebaseConnector: FirebaseConnector) : ISubmissionsRepository {
+class SubmissionsRepository(val firebaseConnector: FirebaseConnector) : ISubmissionsRepository {
 
     override fun addSubmission(submissionRequest: SubmissionRequest) = SubmissionID(firebaseConnector.add(submissionRequest, Collections.submissions))
 
@@ -33,10 +32,12 @@ class SubmissionsRepository(val talkResource: TalkResource, val firebaseConnecto
                 id = SubmissionID(it.id),
                 conference = it.get("conference") as String,
                 time = it.get("time") as String,
-                talk = talkResource.getTalk(it.get("talk") as String),
-                status = Status.valueOf(it.get("status") as String),
+                talk = TalkID(it.getString("talk") as String),
+                status = getStatus(it),
                 notes = it.get("notes") as String
         )
+
+    private fun getStatus(it: DocumentSnapshot) : Status = it.getString("status")?.map { Status.valueOf(it.toString()) }?.first() ?: Status.IN_EVALUATION
 
     override fun markAsRejected(submissionID: SubmissionID) = mutateSubmission(submissionID) { submission -> submission.status = Status.REJECTED }
 
