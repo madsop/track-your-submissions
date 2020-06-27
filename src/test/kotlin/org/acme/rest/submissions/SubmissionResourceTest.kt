@@ -40,7 +40,7 @@ internal class SubmissionResourceTest {
         val submissions = submissionResource.getActiveSubmissions()
         assertEquals(submissions.size, 1)
         assertEquals(submissions.get(0).conference, "JBCNConf")
-        assertEquals(submissions.get(0).time, 2020)
+        assertEquals(submissions.get(0).time, "2020")
         assertEquals(submissions.get(0).status, Status.IN_EVALUATION)
     }
 
