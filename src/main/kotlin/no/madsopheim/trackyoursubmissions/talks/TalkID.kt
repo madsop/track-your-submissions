@@ -6,5 +6,5 @@ import java.util.*
 
 data class TalkID(val id: String) {
 
-    constructor(): this(UUID.randomUUID().toString())
+    constructor(): this(id = UUID.randomUUID().toString())
 }

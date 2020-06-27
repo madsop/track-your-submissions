@@ -5,12 +5,11 @@ import com.natpryce.hamkrest.containsSubstring
 import com.natpryce.hamkrest.equalTo
 import com.natpryce.hamkrest.hasElement
 import com.natpryce.hamkrest.hasSize
-import no.madsopheim.trackyoursubmissions.database.FirebaseConnector
 import no.madsopheim.trackyoursubmissions.exposed.SubmissionResource
 import no.madsopheim.trackyoursubmissions.exposed.TalkResource
 import no.madsopheim.trackyoursubmissions.exposed.UUIDRequest
+import no.madsopheim.trackyoursubmissions.talks.FakeTalkRepository
 import no.madsopheim.trackyoursubmissions.talks.TalkID
-import no.madsopheim.trackyoursubmissions.talks.TalkRepository
 import no.madsopheim.trackyoursubmissions.talks.TalkRequest
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
@@ -25,13 +24,10 @@ internal class SubmissionResourceTest {
 
     @BeforeEach
     fun setup() {
-        val firebaseConnector = FirebaseConnector("todo")
-        submissionResource = SubmissionResource(SubmissionsRepository())
-        val talkResource = TalkResource(TalkRepository(firebaseConnector))
+        val talkResource = TalkResource(FakeTalkRepository())
         talk1 = talkResource.addTalk(TalkRequest("Talk1"))
         talk2 = talkResource.addTalk(TalkRequest("Talk2"))
-        submissionResource.submissionsRepository.talkResource = talkResource
-
+        submissionResource = SubmissionResource(FakeSubmissionsRepository(talkResource))
     }
 
     @Test
@@ -45,7 +41,7 @@ internal class SubmissionResourceTest {
     }
 
     private fun createSubmissionRequest(conferenceName: String, talk: TalkID): SubmissionID {
-        return submissionResource.addSubmission(SubmissionRequest(conferenceName, "2020", UUIDRequest(talk.id), ""))
+        return submissionResource.addSubmission(SubmissionRequest(conferenceName, "2020", TalkID(talk.id), ""))
     }
 
     @Test

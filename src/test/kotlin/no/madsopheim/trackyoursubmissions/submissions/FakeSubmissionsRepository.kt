@@ -1,22 +1,8 @@
 package no.madsopheim.trackyoursubmissions.submissions
 
-import no.madsopheim.trackyoursubmissions.database.FirebaseConnector
 import no.madsopheim.trackyoursubmissions.exposed.TalkResource
-import javax.enterprise.context.ApplicationScoped
-import javax.inject.Inject
 
-interface ISubmissionsRepository {
-    fun addSubmission(submissionRequest: SubmissionRequest): SubmissionID
-    fun getActiveSubmissions(): List<Submission>
-    fun markAsRejected(submissionID: SubmissionID)
-    fun markAsApproved(submissionID: SubmissionID)
-    fun retract(submissionID: SubmissionID)
-    fun addNotes(submissionID: SubmissionID, notes: String)
-    fun getTalk(id: SubmissionID): Submission
-}
-
-@ApplicationScoped
-class SubmissionsRepository(val talkResource: TalkResource, val firebaseConnector: FirebaseConnector) : ISubmissionsRepository {
+class FakeSubmissionsRepository(val talkResource: TalkResource) : ISubmissionsRepository {
 
     private val submissions = mutableMapOf<SubmissionID, Submission>()
 

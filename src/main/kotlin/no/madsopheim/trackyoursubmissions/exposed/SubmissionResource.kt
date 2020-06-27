@@ -1,10 +1,9 @@
 package no.madsopheim.trackyoursubmissions.exposed
 
+import no.madsopheim.trackyoursubmissions.submissions.ISubmissionsRepository
 import no.madsopheim.trackyoursubmissions.submissions.Submission
 import no.madsopheim.trackyoursubmissions.submissions.SubmissionID
 import no.madsopheim.trackyoursubmissions.submissions.SubmissionRequest
-import no.madsopheim.trackyoursubmissions.submissions.SubmissionsRepository
-import javax.inject.Inject
 import javax.ws.rs.*
 import javax.ws.rs.core.MediaType
 
@@ -41,7 +40,7 @@ interface ISubmissionResource {
 }
 
 @Path("/cfp")
-class SubmissionResource(val submissionsRepository: SubmissionsRepository) : ISubmissionResource {
+class SubmissionResource(val submissionsRepository: ISubmissionsRepository) : ISubmissionResource {
 
     override fun addSubmission(submissionRequest: SubmissionRequest): SubmissionID {
         return submissionsRepository.addSubmission(submissionRequest)

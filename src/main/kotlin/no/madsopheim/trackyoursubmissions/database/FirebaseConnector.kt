@@ -1,7 +1,6 @@
 package no.madsopheim.trackyoursubmissions.database
 
 import com.google.auth.oauth2.GoogleCredentials
-import com.google.cloud.firestore.CollectionReference
 import com.google.cloud.firestore.DocumentSnapshot
 import com.google.cloud.firestore.Firestore
 import com.google.firebase.FirebaseApp
@@ -35,9 +34,7 @@ class FirebaseConnector(@ConfigProperty(name = "pathToCredentials") val pathToCr
 
     fun addTalk(talkRequest: TalkRequest): TalkID = TalkID(getCollection().add(talkRequest).get().id)
 
-    private fun getCollection() : CollectionReference {
-        return db.collection("talks")
-    }
+    private fun getCollection() = db.collection("talks")
 
     fun getTalk(talkID: TalkID) : Talk = convertToTalk(getCollection().document(talkID.id).get().get())
 }

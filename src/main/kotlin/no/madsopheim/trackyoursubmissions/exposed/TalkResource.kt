@@ -1,9 +1,6 @@
 package no.madsopheim.trackyoursubmissions.exposed
 
-import no.madsopheim.trackyoursubmissions.talks.Talk
-import no.madsopheim.trackyoursubmissions.talks.TalkID
-import no.madsopheim.trackyoursubmissions.talks.TalkRepository
-import no.madsopheim.trackyoursubmissions.talks.TalkRequest
+import no.madsopheim.trackyoursubmissions.talks.*
 import javax.ws.rs.*
 import javax.ws.rs.core.MediaType
 
@@ -29,7 +26,7 @@ interface ITalkResource {
 }
 
 @Path("/talks")
-class TalkResource(private val talkRepository: TalkRepository) : ITalkResource {
+class TalkResource(private val talkRepository: ITalkRepository) : ITalkResource {
 
     override fun addTalk(talkRequest: TalkRequest) = talkRepository.add(talkRequest)
 
