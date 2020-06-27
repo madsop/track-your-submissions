@@ -29,4 +29,8 @@ class FirebaseConnector(@ConfigProperty(name = "pathToCredentials") val pathToCr
     fun get(id: String, collection: Collections) = db.collection(collection.name).document(id).get().get()
 
     fun getAll(collection: Collections) = db.collection(collection.name).get().get().documents
+
+    fun updateField(id: String, collection: Collections,field: String, newValue: String) {
+        db.collection(collection.name).document(id).update(field, newValue)
+    }
 }

@@ -37,18 +37,17 @@ class SubmissionsRepository(val firebaseConnector: FirebaseConnector) : ISubmiss
                 notes = it.get("notes") as String
         )
 
-    private fun getStatus(it: DocumentSnapshot) : Status = it.getString("status")?.map { Status.valueOf(it.toString()) }?.first() ?: Status.IN_EVALUATION
+    private fun getStatus(ins: DocumentSnapshot) : Status {
+        return Status.valueOf(ins.getString("status") ?: Status.IN_EVALUATION.name)
+    }
 
-    override fun markAsRejected(submissionID: SubmissionID) = mutateSubmission(submissionID) { submission -> submission.status = Status.REJECTED }
+    override fun markAsRejected(submissionID: SubmissionID) = firebaseConnector.updateField(submissionID.id, Collections.submissions, "status", Status.REJECTED.name)
 
-    override fun markAsApproved(submissionID: SubmissionID) = mutateSubmission(submissionID) { submission -> submission.status = Status.ACCEPTED }
+    override fun markAsApproved(submissionID: SubmissionID) = firebaseConnector.updateField(submissionID.id, Collections.submissions, "status", Status.ACCEPTED.name)
 
+    override fun retract(submissionID: SubmissionID) = firebaseConnector.updateField(submissionID.id, Collections.submissions, "status", Status.RETRACTED.name)
 
-    override fun retract(submissionID: SubmissionID) = mutateSubmission(submissionID) { submission -> submission.status = Status.RETRACTED }
-
-    override fun addNotes(submissionID: SubmissionID, notes: String) = mutateSubmission(submissionID) { submission -> submission.notes = notes}
+    override fun addNotes(submissionID: SubmissionID, notes: String) = firebaseConnector.updateField(submissionID.id, Collections.submissions, "notes", notes)
 
     override fun getTalk(id: SubmissionID) = convertToSubmission(firebaseConnector.get(id.id, Collections.submissions))
-
-    private fun mutateSubmission(submissionID: SubmissionID, action: (s: Submission) -> Unit) = action.invoke(getTalk(submissionID))
 }
